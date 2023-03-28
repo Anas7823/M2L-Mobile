@@ -20,7 +20,7 @@ class _AjoutState extends State<Ajout> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-        title: const Text("Nouveau livre"),
+        title: const Text("Nouveau produit"),
         ),
         backgroundColor : Colors.white,
         body: ProgressHUD(
@@ -47,7 +47,7 @@ class _AjoutState extends State<Ajout> {
               top: 70,
               bottom: 30
             ),
-            child: Text("Titre :", style: TextStyle(
+            child: Text("Nom du Produit :", style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 25,
               color: Colors.blue 
@@ -57,7 +57,7 @@ class _AjoutState extends State<Ajout> {
           FormHelper.inputFieldWidget(
             context, 
             "Title", 
-            "Title", 
+            "Nom du produit", 
             (onValidateVal){
               if(onValidateVal.isEmpty){
                 return "Le titre ne peut être vide";
@@ -75,7 +75,7 @@ class _AjoutState extends State<Ajout> {
             ),
             const Padding(
               padding:  EdgeInsets.only(top:20,left: 20,),
-              child:  Text("résumé :", style: TextStyle(
+              child:  Text("Prix :", style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 25,
               color: Colors.blue 
@@ -87,7 +87,7 @@ class _AjoutState extends State<Ajout> {
               child:  FormHelper.inputFieldWidget(
                 context, 
                 "body", 
-                "résumé", 
+                "Prix", 
                 (onValidateVal){
                   if(onValidateVal.isEmpty){
                     return "Le résumé ne peut être vide";
@@ -116,7 +116,7 @@ class _AjoutState extends State<Ajout> {
                   dynamic validate = globalFormKey.currentState?.validate();
                   if(validate != null && validate){
                     globalFormKey.currentState?.save();
-                    Livre.ajout(context, title, body);
+                    Produits.ajout(context, title, body);
                   }             
                 },
                 btnColor: Colors.blue,

@@ -2,11 +2,14 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-class Livre{
-  static String baseUrl = "https://jsonplaceholder.typicode.com";
-  static Future<List> getAllLivre() async{
-    try{
-      var res = await http.get(Uri.parse(baseUrl+'/posts'));
+class Produits{
+  static String baseUrl = "http://192.168.143.195:8000/";
+  static Future<List> getAllProduits() async{
+    print("test");
+      var res = await http.get(Uri.parse( baseUrl+"sports"));
+      print("res.statusCode");
+          try{
+
       if(res.statusCode == 200){
         return jsonDecode(res.body);
       }
@@ -15,6 +18,7 @@ class Livre{
       }
     }
     catch(err){
+
       return Future.error(err);
     }
   }

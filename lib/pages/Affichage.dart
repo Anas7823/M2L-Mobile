@@ -13,20 +13,20 @@ class Affichage extends StatefulWidget {
 
 class _AffichageState extends State<Affichage> {
   
-  late Future<List> _bookList;
+  late Future<List> _produitList;
   @override 
   void initState() {
     // TODO: implement initState
     super.initState();
-    _bookList = Livre.getAllLivre();
+    _produitList = Produits.getAllProduits();
   }
   @override
   Widget build(BuildContext context) {
     if(ModalRoute.of(context)!.settings.arguments != null){
       Object? arg = ModalRoute.of(context)!.settings.arguments;
-      var newLivre= jsonDecode(arg.toString());
+      var newProduit= jsonDecode(arg.toString());
        setState(() {
-         _bookList = _bookList.then<List>((value) {return [newLivre, ...value];});
+         _produitList = _produitList.then<List>((value) {return [newProduit, ...value];});
       });
     }
      return Scaffold(
@@ -35,7 +35,7 @@ class _AffichageState extends State<Affichage> {
       ),
       body: Container(
         child: FutureBuilder<List>(
-          future: _bookList,
+          future: _produitList,
           builder: (context, snapshot){
             if(snapshot.hasData){
               return ListView.builder(
@@ -43,11 +43,11 @@ class _AffichageState extends State<Affichage> {
                 itemBuilder: (context, i){
                   return Card(
                     child: ListTile(
-                      title: Text(snapshot.data![i]['title'], style: const TextStyle(fontSize: 30),),
+                      title: Text(snapshot.data![i]['NomProduit'], style: const TextStyle(fontSize: 30),),
                       subtitle: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          Text(snapshot.data![i]['body'], style: const TextStyle(fontSize: 20)),
+                          Text(snapshot.data![i]['PrixProduit'].toString(), style: const TextStyle(fontSize: 20)),
                       ]),
                     ),
                   );
