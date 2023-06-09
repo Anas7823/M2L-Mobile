@@ -47,8 +47,8 @@ class User {
     }
   }
 
-  static ajoutUser(BuildContext context, String NomCompte, String MdpCompte, Bool CompteAdmin,
-      String MailCompte, String AdresseCompte) async {
+  static ajoutUser(BuildContext context, String NomCompte, String MdpCompte,
+   Bool CompteAdmin, String MailCompte, String AdresseCompte) async {
     try {
       var res = await http.post(
         Uri.parse("$baseUrl/compte"),
@@ -60,7 +60,7 @@ class User {
           'MdpCompte': MdpCompte,
           'CompteAdmin': CompteAdmin.toString(),
           'MailCompte': MailCompte,
-          'AdresseCompte': AdresseCompte
+          'AdresseCompte': AdresseCompte,
         }),
       );
       if (res.statusCode == 200) {

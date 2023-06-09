@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import '../User.dart';
 
@@ -10,9 +12,12 @@ class AjoutUser extends StatefulWidget {
 
 class _AjoutUserState extends State<AjoutUser> {
   final GlobalKey<FormState> login = GlobalKey<FormState>();
-  final themeController = TextEditingController();
-  final UserController = TextEditingController();
-  final reponseController = TextEditingController();
+  final NomCompteController = TextEditingController();
+  final MdpCompteController = TextEditingController();
+  final CompteAdminController = TextEditingController();
+  final MailCompteController = TextEditingController();
+  final AdresseCompteController = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +33,7 @@ class _AjoutUserState extends State<AjoutUser> {
   Widget _AjoutUser(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Ajout d'un produit"),
+        title: const Text("Ajout d'un compte"),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -39,7 +44,7 @@ class _AjoutUserState extends State<AjoutUser> {
                 padding: EdgeInsets.all(50),
                 child: Center(
                   child: Text(
-                    "Ajouter un Produit",
+                    "Ajouter un Compte",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 25,
@@ -50,11 +55,11 @@ class _AjoutUserState extends State<AjoutUser> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: TextFormField(
-                  controller: themeController,
+                  controller: NomCompteController,
                   decoration: const InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: 'Thème',
-                      hintText: 'Entrez un thème'),
+                      labelText: 'Nom de compte',
+                      hintText: 'Entrez un nom de compte'),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "Veuillez rentrer un thème";
@@ -64,34 +69,64 @@ class _AjoutUserState extends State<AjoutUser> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(
-                    left: 15.0, right: 15.0, top: 15, bottom: 0),
+                padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: TextFormField(
-                  controller: UserController,
+                  controller: MdpCompteController,
                   decoration: const InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: 'User',
-                      hintText: 'Entrez une User'),
+                      labelText: 'Mot de passe',
+                      hintText: 'Entrez un mot de passe'),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return "Veuillez rentrer une User";
+                      return "Veuillez rentrer un mot de passe";
                     }
                     return null;
                   },
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(
-                    left: 15.0, right: 15.0, top: 15, bottom: 0),
+                padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: TextFormField(
-                  controller: reponseController,
+                  controller: CompteAdminController,
                   decoration: const InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: 'Réponse',
-                      hintText: 'Entrez la réponse'),
+                      labelText: 'Compte admin',
+                      hintText: 'Entrez un compte admin'),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return "Veuillez rentrer la réponse";
+                      return "Veuillez rentrer un compte admin";
+                    }
+                    return null;
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: TextFormField(
+                  controller: MailCompteController,
+                  decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Mail',
+                      hintText: 'Entrez un mail'),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Veuillez rentrer un mail";
+                    }
+                    return null;
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: TextFormField(
+                  controller: AdresseCompteController,
+                  decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Adresse',
+                      hintText: 'Entrez une adresse'),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Veuillez rentrer une adresse";
                     }
                     return null;
                   },
@@ -108,8 +143,8 @@ class _AjoutUserState extends State<AjoutUser> {
                   child: TextButton(
                     onPressed: () {
                       if (login.currentState!.validate()) {
-                        User.ajoutUser(context, themeController.text,
-                            UserController.text, reponseController.text);
+                        User.ajoutUser(context, NomCompteController.text,
+                            MdpCompteController.text, CompteAdminController.text as Bool, MailCompteController.text, AdresseCompteController.text);
                       }
                     },
                     child: const Text("Validez",
