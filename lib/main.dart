@@ -26,8 +26,8 @@ class _HomeState extends State<Home> {
         primarySwatch: Colors.blue,
       ),
       routes: {
-        // '/': (context) => const Connexion(),
-        '/': (context) => const AffichageProd(),
+        '/': (context) => const Connexion(),
+        '/listeProduit': (context) => const AffichageProd(),
         '/ajoutProduit': (context) => const AjoutProd(),
         '/listeUser': (context) => const AffichageUser(),
         '/ajoutUser': (context) => const AjoutUser(),

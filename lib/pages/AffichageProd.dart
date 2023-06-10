@@ -11,7 +11,7 @@ class AffichageProd extends StatefulWidget {
 }
 
 final List _pages = [
-  "/","/listeUser"
+  "/listeProduit","/listeUser"
 ];
 
 class _AffichageProdState extends State<AffichageProd> {

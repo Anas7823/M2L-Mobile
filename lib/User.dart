@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class User {
-  static String baseUrl = "http://192.168.0.11:8000"; // Adresse du serveur à modif
+  static String baseUrl = "http://192.168.1.97:8000"; // Adresse du serveur à modif
+  //Penser a faire un ipconfig pour savoir quelle adresse mettre
 
   static Future<List> getAllUser() async {
     try {
@@ -35,10 +36,14 @@ class User {
   static Login(BuildContext context, mail, mdp) async {
     try {
       var connection = {"mail": mail, "mdp": mdp};
+      String jsonBody = json.encode(connection);
+      print(mail);
+      print(mdp);
       var res =
-          await http.post(Uri.parse("$baseUrl/login"), body: connection);
+          await http.post(Uri.parse("$baseUrl/login"),headers:{"Content-Type": "application/json"},body: jsonBody);
+      print(res);
       if (res.statusCode == 200) {
-        Navigator.pushNamed(context, '/listeUser');
+        Navigator.pushNamed(context, '/listeProduit');
       } else {
         Navigator.pushNamed(context, '/');
       }
@@ -48,7 +53,16 @@ class User {
   }
 
   static ajoutUser(BuildContext context, String NomCompte, String MdpCompte,
-   bool CompteAdmin, String MailCompte, String AdresseCompte) async {
+   int CompteAdmin, String MailCompte, String AdresseCompte) async {
+    var body = {
+      'nom': NomCompte,
+      'admin': CompteAdmin.toString(),
+      'mail': MailCompte,
+      'adress': AdresseCompte,
+    };
+    if (MdpCompte != "") {
+      body['mdp'] = MdpCompte;
+    }
     try {
       var res = await http.post(
         Uri.parse("$baseUrl/utilisateur"),
@@ -56,11 +70,11 @@ class User {
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode(<String, String>{
-          'NomCompte': NomCompte,
-          'MdpCompte': MdpCompte,
-          'CompteAdmin': CompteAdmin.toString(),
-          'MailCompte': MailCompte,
-          'AdresseCompte': AdresseCompte,
+          'nom': NomCompte,
+          'mdp': MdpCompte,
+          'admin': CompteAdmin.toString(),
+          'mail': MailCompte,
+          'adress': AdresseCompte,
         }),
       );
       if (res.statusCode == 200) {
@@ -74,7 +88,7 @@ class User {
   }
 
   static Update(BuildContext context, int id, String NomCompte, String MdpCompte,
-  bool CompteAdmin, String MailCompte, String AdresseCompte) async {
+  int CompteAdmin, String MailCompte, String AdresseCompte) async {
     try {
       var res = await http.put(
         Uri.parse("$baseUrl/utilisateur/$id"),
@@ -82,10 +96,10 @@ class User {
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode(<String, String>{
-          'NomCompte': NomCompte,
-          'MdpCompte': MdpCompte,
-          'CompteAdmin': CompteAdmin.toString(),
-          'MailCompte': MailCompte,
+          'nom': NomCompte,
+          'mdp': MdpCompte,
+          'admin': CompteAdmin.toString(),
+          'mail': MailCompte,
           'id': id.toString()
         }),
       );

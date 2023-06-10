@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class Produit {
-  static String baseUrl = "http://192.168.0.11:8000"; // Adresse du serveur à modif
+  static String baseUrl = "http://192.168.1.97:8000"; // Adresse du serveur à modif
+  //Penser a faire un ipconfig pour savoir quelle adresse mettre
 
   static Future<List> getAllproduit() async {
     try {
@@ -63,7 +64,7 @@ class Produit {
         }),
       );
       if (res.statusCode == 200) {
-        Navigator.pushNamed(context, '/');
+        Navigator.pushNamed(context, '/listeProduit');
       } else {
         Navigator.pushNamed(context, '/');
       }
@@ -88,7 +89,7 @@ class Produit {
         }),
       );
       if (res.statusCode == 200) {
-        Navigator.pushNamed(context, '/');
+        Navigator.pushNamed(context, '/listeProduit');
       } else {
         Navigator.pushNamed(context, '/');
       }
@@ -101,7 +102,7 @@ class Produit {
     var res = await http.delete(Uri.parse('$baseUrl/delproduit/$id'),
         body: id.toString());
     if (res.statusCode == 200) {
-      Navigator.pushNamed(context, '/');
+      Navigator.pushNamed(context, '/listeProduit');
     } else {
       Navigator.pushNamed(context, '/');
     }

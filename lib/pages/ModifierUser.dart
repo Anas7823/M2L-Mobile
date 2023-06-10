@@ -4,6 +4,7 @@ import 'dart:developer' as developer;
 import 'dart:io';
 import 'package:flutter/material.dart';
 import '../User.dart';
+import 'package:flutter_bcrypt/flutter_bcrypt.dart';
 
 class Modifier extends StatefulWidget {
   final int id;
@@ -33,14 +34,12 @@ class _ModifierState extends State<Modifier> {
           // On pré-remplit le formulaire avec les données récupérer de l'API
           NomCompteController.text = value[0]['NomCompte'],
           developer.log('Value1 Marche', name: 'my.app.category'),
-          MdpCompteController.text = value[0]['MdpCompte'],
-          developer.log('Value2 Marche', name: 'my.app.category'),
           CompteAdminController.text = value[0]['CompteAdmin'] ==0 ? "0" : "1",
-          developer.log('Value3 Marche', name: 'my.app.category'),
+          developer.log('Value2 Marche', name: 'my.app.category'),
           MailCompteController.text = value[0]['MailCompte'],
-          developer.log('Value4 Marche', name: 'my.app.category'),
+          developer.log('Value3 Marche', name: 'my.app.category'),
           AdresseCompteController.text = value[0]['AdresseCompte'],
-          developer.log('Value5 Marche', name: 'my.app.category')
+          developer.log('Value4 Marche', name: 'my.app.category')
         });
   }
 
@@ -103,12 +102,9 @@ class _ModifierState extends State<Modifier> {
                   controller: MdpCompteController,
                   decoration: const InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: 'Mot de passe',
+                      labelText: ' Nouveau mdp (laissé vide si inchangé)',
                       hintText: 'Entrez un mot de passe'),
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Veuillez rentrer un mot de passe";
-                    }
                     return null;
                   },
                 ),
@@ -183,7 +179,7 @@ class _ModifierState extends State<Modifier> {
                             widget.id,
                             NomCompteController.text,
                             MdpCompteController.text,
-                            (CompteAdminController.text) == "0" ? false : true,
+                            int.parse(CompteAdminController.text),
                             MailCompteController.text,
                             AdresseCompteController.text);
                       }
