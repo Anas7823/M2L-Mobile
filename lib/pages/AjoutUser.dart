@@ -144,7 +144,7 @@ class _AjoutUserState extends State<AjoutUser> {
                     onPressed: () {
                       if (login.currentState!.validate()) {
                         User.ajoutUser(context, NomCompteController.text,
-                            MdpCompteController.text, CompteAdminController.text as Bool, MailCompteController.text, AdresseCompteController.text);
+                            MdpCompteController.text, CompteAdminController.text as bool, MailCompteController.text, AdresseCompteController.text);
                       }
                     },
                     child: const Text("Validez",

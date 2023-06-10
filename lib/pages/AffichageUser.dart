@@ -10,6 +10,10 @@ class AffichageUser extends StatefulWidget {
   State<AffichageUser> createState() => _AffichageUserState();
 }
 
+final List _pages = [
+  "/","/listeUser"
+];
+
 class _AffichageUserState extends State<AffichageUser> {
   late Future<List> _User;
 
@@ -18,6 +22,8 @@ class _AffichageUserState extends State<AffichageUser> {
     super.initState();
     _User = User.getAllUser();
   }
+
+  int _selectedTab = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -38,11 +44,19 @@ class _AffichageUserState extends State<AffichageUser> {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           Text(
-                            snapshot.data![i]['User'].toString(),
+                            snapshot.data![i]['NomCompte'].toString(),
                             style: const TextStyle(fontSize: 20),
                           ),
                           Text(
-                            snapshot.data![i]['reponse'].toString(),
+                            snapshot.data![i]['CompteAdmin'] == 0 ? "User" : "Admin",
+                            style: const TextStyle(fontSize: 18),
+                          ),
+                          Text(
+                            snapshot.data![i]['MailCompte'].toString(),
+                            style: const TextStyle(fontSize: 18),
+                          ),
+                          Text(
+                            snapshot.data![i]['AdresseCompte'].toString(),
                             style: const TextStyle(fontSize: 18),
                           ),
                           Row(
@@ -58,7 +72,7 @@ class _AffichageUserState extends State<AffichageUser> {
                                         MaterialPageRoute(
                                             builder: (context) => Modifier(
                                                 id: int.parse(snapshot.data![i]
-                                                        ["id"]
+                                                        ["IdCompte"]
                                                     .toString()))),
                                       );
                                     },
@@ -100,7 +114,7 @@ class _AffichageUserState extends State<AffichageUser> {
                                                                   context,
                                                                   int.parse(snapshot
                                                                       .data![i]
-                                                                          ["id"]
+                                                                          ["IdCompte"]
                                                                       .toString()));
                                                             }),
                                                       ),
@@ -145,9 +159,21 @@ class _AffichageUserState extends State<AffichageUser> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, '/ajout');
+          Navigator.pushNamed(context, '/ajoutUser');
         },
         child: const Icon(Icons.add),
+      ),      
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedTab,
+        onTap: (index) => Navigator.pushNamed(context, _pages[index]),
+        selectedItemColor: Colors.red,
+        unselectedItemColor: Colors.grey,
+        items: [
+          BottomNavigationBarItem(
+              icon: Icon(Icons.grid_3x3_outlined), label: "Produits"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.contact_mail), label: "Comtes"),
+        ],
       ),
     );
   }

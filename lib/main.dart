@@ -7,21 +7,35 @@ import 'pages/Connexion.dart';
 
 void main() => runApp(const Home());
 
-class Home extends StatelessWidget {
+final List _pages = [
+  "Produit","User"
+];
+
+int _selectedTab = 0;
+
+class Home extends StatefulWidget {
   const Home({super.key});
 
-  static const String _title = 'Quizz';
+  static const String _title = 'Admin Gestion Sport et User';
+
+    @override State<Home> createState() =>_HomeState();
+}
+
+class _HomeState extends State<Home> {
+
+  static const String _title = 'Admin Gestion Sport et User';
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Notre application de quizz',
+    return
+    MaterialApp(  
+      title: 'Notre application d\'administration',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       routes: {
-        '/': (context) => const Connexion(),
-        '/listeProduit': (context) => const AffichageProd(),
+        // '/': (context) => const Connexion(),
+        '/': (context) => const AffichageProd(),
         '/ajoutProduit': (context) => const AjoutProd(),
         '/listeUser': (context) => const AffichageUser(),
         '/ajoutUser': (context) => const AjoutUser(),

@@ -8,7 +8,7 @@ class User {
 
   static Future<List> getAllUser() async {
     try {
-      var res = await http.get(Uri.parse("$baseUrl/compte"));
+      var res = await http.get(Uri.parse("$baseUrl/utilisateur"));
       if (res.statusCode == 200) {
         return jsonDecode(res.body);
       } else {
@@ -21,7 +21,7 @@ class User {
 
   static Future<List> getUser(int id) async {
     try {
-      var res = await http.get(Uri.parse("$baseUrl/compte/$id"));
+      var res = await http.get(Uri.parse("$baseUrl/utilisateur/$id"));
       if (res.statusCode == 200) {
         return jsonDecode(res.body);
       } else {
@@ -48,10 +48,10 @@ class User {
   }
 
   static ajoutUser(BuildContext context, String NomCompte, String MdpCompte,
-   Bool CompteAdmin, String MailCompte, String AdresseCompte) async {
+   bool CompteAdmin, String MailCompte, String AdresseCompte) async {
     try {
       var res = await http.post(
-        Uri.parse("$baseUrl/compte"),
+        Uri.parse("$baseUrl/utilisateur"),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -73,18 +73,19 @@ class User {
     }
   }
 
-  static Update(BuildContext context, int id, String theme, String compte,
-      String reponse) async {
+  static Update(BuildContext context, int id, String NomCompte, String MdpCompte,
+  bool CompteAdmin, String MailCompte, String AdresseCompte) async {
     try {
       var res = await http.put(
-        Uri.parse("$baseUrl/compte/$id"),
+        Uri.parse("$baseUrl/utilisateur/$id"),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode(<String, String>{
-          'theme': theme,
-          'compte': compte,
-          'reponse': reponse,
+          'NomCompte': NomCompte,
+          'MdpCompte': MdpCompte,
+          'CompteAdmin': CompteAdmin.toString(),
+          'MailCompte': MailCompte,
           'id': id.toString()
         }),
       );
@@ -99,7 +100,7 @@ class User {
   }
 
   static Delete(BuildContext context, int id) async {
-    var res = await http.delete(Uri.parse('$baseUrl/compte/$id'),
+    var res = await http.delete(Uri.parse("$baseUrl/utilisateur/$id"),
         body: id.toString());
     if (res.statusCode == 200) {
       Navigator.pushNamed(context, '/listeUser');

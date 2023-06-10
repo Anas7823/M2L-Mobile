@@ -10,8 +10,14 @@ class AffichageProd extends StatefulWidget {
   State<AffichageProd> createState() => _AffichageProdState();
 }
 
+final List _pages = [
+  "/","/listeUser"
+];
+
 class _AffichageProdState extends State<AffichageProd> {
   late Future<List> _produit;
+
+  int _selectedTab = 0;
 
   @override
   void initState() {
@@ -62,7 +68,7 @@ class _AffichageProdState extends State<AffichageProd> {
                                         MaterialPageRoute(
                                             builder: (context) => Modifier(
                                                 id: int.parse(snapshot.data![i]
-                                                        ["id"]
+                                                        ["IdProduit"]
                                                     .toString()))),
                                       );
                                     },
@@ -104,7 +110,7 @@ class _AffichageProdState extends State<AffichageProd> {
                                                                   context,
                                                                   int.parse(snapshot
                                                                       .data![i]
-                                                                          ["id"]
+                                                                          ["IdProduit"]
                                                                       .toString()));
                                                             }),
                                                       ),
@@ -147,11 +153,24 @@ class _AffichageProdState extends State<AffichageProd> {
           }
         },
       ),
+      
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, '/ajout');
+          Navigator.pushNamed(context, '/ajoutProduit');
         },
         child: const Icon(Icons.add),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedTab,
+        onTap: (index) => Navigator.pushNamed(context, _pages[index]),
+        selectedItemColor: Colors.red,
+        unselectedItemColor: Colors.grey,
+        items: [
+          BottomNavigationBarItem(
+              icon: Icon(Icons.grid_3x3_outlined), label: "Produits"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.contact_mail), label: "Comtes"),
+        ],
       ),
     );
   }

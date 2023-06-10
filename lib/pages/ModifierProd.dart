@@ -18,6 +18,7 @@ class _ModifierState extends State<Modifier> {
   final PrixProduitController = TextEditingController();
   final StockProduitController = TextEditingController();
   final IdSportController = TextEditingController();
+  final ImageProduitController = TextEditingController();
   late Future<List> _produit;
 
   @override
@@ -29,9 +30,10 @@ class _ModifierState extends State<Modifier> {
     _produit.then((value) => {
           // On pré-remplit le formulaire avec les données récupérer de l'API
           NomProduitController.text = value[0]['NomProduit'],
-          PrixProduitController.text = value[0]['PrixProduit'],
-          StockProduitController.text = value[0]['StockProduit'],
-          IdSportController.text = value[0]['IdSport'],
+          PrixProduitController.text = value[0]['PrixProduit'].toString(),
+          StockProduitController.text = value[0]['StockProduit'].toString(),
+          IdSportController.text = value[0]['IdSport'].toString(),
+          ImageProduitController.text = value[0]['ImageProduit'],
         });
   }
 
@@ -126,11 +128,28 @@ class _ModifierState extends State<Modifier> {
                   controller: IdSportController,
                   decoration: const InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: 'Stock',
+                      labelText: 'Id Sport',
                       hintText: 'Entrez l\'id du sport'),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "Veuillez rentrer l'id du sport";
+                    }
+                    return null;
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: 15.0, right: 15.0, top: 15, bottom: 0),
+                child: TextFormField(
+                  controller: ImageProduitController,
+                  decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Image',
+                      hintText: 'Entrez le lien de l\'image'),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Veuillez rentrer le lien de l'image";
                     }
                     return null;
                   },
@@ -152,9 +171,9 @@ class _ModifierState extends State<Modifier> {
                             context,
                             widget.id,
                             NomProduitController.text,
-                            PrixProduitController.text as Float,
-                            StockProduitController.text as Int,
-                            IdSportController.text as Int
+                            double.parse(PrixProduitController.text),
+                            int.parse(StockProduitController.text),
+                            int.parse(IdSportController.text)
                             );
                       }
                     },

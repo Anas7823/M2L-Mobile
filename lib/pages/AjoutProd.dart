@@ -16,6 +16,7 @@ class _AjoutProdState extends State<AjoutProd> {
   final PrixProduitController = TextEditingController();
   final StockProduitController = TextEditingController();
   final IdSportController = TextEditingController();
+  final ImageProduitController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +75,7 @@ class _AjoutProdState extends State<AjoutProd> {
                   controller: PrixProduitController,
                   decoration: const InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: 'Réponse',
+                      labelText: 'Prix',
                       hintText: 'Entrez le prix'),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -91,7 +92,7 @@ class _AjoutProdState extends State<AjoutProd> {
                   controller: StockProduitController,
                   decoration: const InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: 'Réponse',
+                      labelText: 'Stock',
                       hintText: 'Entrez le stock'),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -108,11 +109,28 @@ class _AjoutProdState extends State<AjoutProd> {
                   controller: IdSportController,
                   decoration: const InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: 'Réponse',
+                      labelText: 'Sport',
                       hintText: 'Entrez l\'id du sport'),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "Veuillez rentrer l'id du sport";
+                    }
+                    return null;
+                  },
+                ),
+              ),
+                            Padding(
+                padding: const EdgeInsets.only(
+                    left: 15.0, right: 15.0, top: 15, bottom: 0),
+                child: TextFormField(
+                  controller: ImageProduitController,
+                  decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Image',
+                      hintText: 'Entrez le lien d\'une image'),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Veuillez rentrer le lien d'une image";
                     }
                     return null;
                   },
@@ -130,7 +148,8 @@ class _AjoutProdState extends State<AjoutProd> {
                     onPressed: () {
                       if (login.currentState!.validate()) {
                         Produit.ajoutProd(context, NomProduitController.text,
-                            PrixProduitController.text as Float, StockProduitController.text as Int, IdSportController.text as Int);
+                            double.parse(PrixProduitController.text), int.parse(StockProduitController.text),
+                            int.parse(IdSportController.text), ImageProduitController.text);
                       }
                     },
                     child: const Text("Validez",

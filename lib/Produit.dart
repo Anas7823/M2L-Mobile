@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class Produit {
-  static String baseUrl = "http://localhost:8000";
+  static String baseUrl = "http://192.168.1.97:8000";
 
   static Future<List> getAllproduit() async {
     try {
-      var res = await http.get(Uri.parse("$baseUrl/produit"));
+      var res = await http.get(Uri.parse("$baseUrl/sports"));
       if (res.statusCode == 200) {
         return jsonDecode(res.body);
       } else {
@@ -38,7 +38,7 @@ class Produit {
       var res =
           await http.post(Uri.parse("$baseUrl/connexion"), body: connection);
       if (res.statusCode == 200) {
-        Navigator.pushNamed(context, '/listeProd');
+        Navigator.pushNamed(context, '/listeProduit');
       } else {
         Navigator.pushNamed(context, '/');
       }
@@ -47,7 +47,7 @@ class Produit {
     }
   }
 
-  static ajoutProd(BuildContext context, String NomProduit, Float PrixProduit, Int StockProduit, Int IdSport) async {
+  static ajoutProd(BuildContext context, String NomProduit, double PrixProduit, int StockProduit, int IdSport, String ImageProduit) async {
     try {
       var res = await http.post(
         Uri.parse("$baseUrl/produit"),
@@ -55,14 +55,15 @@ class Produit {
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode(<String, String>{
-          'NomProduit': NomProduit,
-          'PrixProduit': PrixProduit.toString(),
-          'StockProduit': StockProduit.toString(),
-          'IdSport': IdSport.toString()
+          'nom': NomProduit,
+          'prix': PrixProduit.toString(),
+          'stock': StockProduit.toString(),
+          'idSport': IdSport.toString(),
+          'img' : ImageProduit
         }),
       );
       if (res.statusCode == 200) {
-        Navigator.pushNamed(context, '/listeProd');
+        Navigator.pushNamed(context, '/');
       } else {
         Navigator.pushNamed(context, '/');
       }
@@ -71,7 +72,7 @@ class Produit {
     }
   }
 
-  static Update(BuildContext context, int id, String NomProduit, Float PrixProduit, Int StockProduit, Int IdSport) async {
+  static Update(BuildContext context, int id, String NomProduit, double PrixProduit, int StockProduit, int IdSport) async {
     try {
       var res = await http.put(
         Uri.parse("$baseUrl/produit/$id"),
@@ -79,15 +80,15 @@ class Produit {
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode(<String, String>{
-          'NomProduit': NomProduit,
-          'PrixProduit': PrixProduit.toString(),
-          'StockProduit': StockProduit.toString(),
-          'IdSport': IdSport.toString(),
+          'nom': NomProduit,
+          'prix': PrixProduit.toString(),
+          'stock': StockProduit.toString(),
+          'idSport': IdSport.toString(),
           'id': id.toString()
         }),
       );
       if (res.statusCode == 200) {
-        Navigator.pushNamed(context, '/listeProd');
+        Navigator.pushNamed(context, '/');
       } else {
         Navigator.pushNamed(context, '/');
       }
@@ -97,10 +98,10 @@ class Produit {
   }
 
   static Delete(BuildContext context, int id) async {
-    var res = await http.delete(Uri.parse('$baseUrl/produit/$id'),
+    var res = await http.delete(Uri.parse('$baseUrl/delproduit/$id'),
         body: id.toString());
     if (res.statusCode == 200) {
-      Navigator.pushNamed(context, '/listeProd');
+      Navigator.pushNamed(context, '/');
     } else {
       Navigator.pushNamed(context, '/');
     }
