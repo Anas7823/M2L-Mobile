@@ -7,24 +7,16 @@ import 'pages/Connexion.dart';
 
 void main() => runApp(const Home());
 
-final List _pages = [
-  "Produit","User"
-];
-
-int _selectedTab = 0;
 
 class Home extends StatefulWidget {
   const Home({super.key});
 
-  static const String _title = 'Admin Gestion Sport et User';
+  static const String _title = 'M2L Administration';
 
     @override State<Home> createState() =>_HomeState();
 }
 
 class _HomeState extends State<Home> {
-
-  static const String _title = 'Admin Gestion Sport et User';
-
   @override
   Widget build(BuildContext context) {
     return

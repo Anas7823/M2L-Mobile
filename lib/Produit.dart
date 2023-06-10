@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class Produit {
-  static String baseUrl = "http://192.168.1.97:8000";
+  static String baseUrl = "http://192.168.0.11:8000"; // Adresse du serveur à modif
 
   static Future<List> getAllproduit() async {
     try {

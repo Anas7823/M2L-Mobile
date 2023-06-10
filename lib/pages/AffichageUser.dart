@@ -29,7 +29,7 @@ class _AffichageUserState extends State<AffichageUser> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Liste des produits"),
+        title: const Text("Liste des utilisateurs"),
       ),
       body: FutureBuilder<List>(
         future: _User,
