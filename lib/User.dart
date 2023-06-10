@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class User {
-  static String baseUrl = "http://192.168.1.97:8000";
+  static String baseUrl = "http://192.168.0.11:8000"; // Adresse du serveur à modif
 
   static Future<List> getAllUser() async {
     try {
-      var res = await http.get(Uri.parse("$baseUrl/compte"));
+      var res = await http.get(Uri.parse("$baseUrl/utilisateur"));
       if (res.statusCode == 200) {
         return jsonDecode(res.body);
       } else {
@@ -21,7 +21,7 @@ class User {
 
   static Future<List> getUser(int id) async {
     try {
-      var res = await http.get(Uri.parse("$baseUrl/compte/$id"));
+      var res = await http.get(Uri.parse("$baseUrl/utilisateur/$id"));
       if (res.statusCode == 200) {
         return jsonDecode(res.body);
       } else {

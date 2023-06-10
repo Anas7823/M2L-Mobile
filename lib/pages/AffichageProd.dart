@@ -149,7 +149,7 @@ class _AffichageProdState extends State<AffichageProd> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, '/ajout');
+          Navigator.pushNamed(context, '/ajoutProduit');
         },
         child: const Icon(Icons.add),
       ),
